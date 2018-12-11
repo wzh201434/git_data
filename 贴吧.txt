@@ -1,0 +1,34 @@
+url = 'https://tieba.baidu.com/f?'
+headers = {
+User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36
+}
+#输入起始页码，输入结束页码，然后再当前文件夹中创建一个以吧名为名字的文件夹，里面##是每页的html内容，文件名是吧名_page.html
+ba_name = input('请输入要爬取的吧名')
+start_page = int(input('起始页码'))
+end_page = int(input('结束页码'))
+
+#创建文件夹
+if not os.path.exists(ba_name):
+	os.mkdir(ba_name)
+#循环，一次爬取每页数据
+for page in range(start_page,end_page+1)
+拼接url：
+data ={
+'kw' : ba_name,
+'ie' = 'utf-8',
+'pn' = (page-1)*50,
+}
+data = urllib.parse.urlencode(data)
+生成指定url
+url_t = url+dataprint(url_t)
+request = urllib.request.Request(url=ur_t,headers=headers)
+print('第%s页开始下载'%page)
+response = urllib.request.urlopen(request)
+#生成文件名
+filename = ba_name+'_'+str(page)+'.html'
+#拼接文件名
+filepath=ba_name+'/'+filename
+#写入文件内容
+with open(filepath,'wb')as fp:
+	fp.write(response.read())
+print('第%s页结束下载'%page)
