@@ -1,0 +1,48 @@
+NameError TypeError FileNotFound 异常
+异常处理，结构 try-except
+URLRrror\HTTPError（在urllib.error模块中，需import）：
+	（1）没有网
+	（2）服务器连接失败
+	（3）找不到指定的服务器
+其中HTTPError是URLError的子类
+	import urllib.request
+	import urllib.parse
+	import urllib.error
+	url = "http://www.baida.com/"
+	
+	（（try:
+		response = urllib.request.urlopen(url)
+		print(response.read())
+	except Exception as e:#可以将异常Exception精确为urllib.error.URLError
+		print(e)
+		））
+	try:
+		response = urllib.request.urlopen(url)
+		print(response)
+	except HTTPError as e:
+		print(e.code)
+	except URLError as e:
+		print(e)
+	[注]：两个同事显示时，HTTPError放在前面,URLError 放在后面
+Handler处理器、自定义Opener
+	urlopen()给一个统一资源定位器，发送请求，获取相应
+	equest()定制请求头，创建请求对象
+	高级功能：使用代理，cookie（用来记录浏览器的状态）
+	基本用法：
+	import urllib.request
+	import urllib.parse
+	urllib = 'http://www.baidu.com/'
+	headers = {
+	'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36'
+	}
+	#首先需要创建一个handler
+	handler = urllib.request.HTTPHander()
+	#通过handler创建一个opener,可以吧opener看成一个url对象，发送请求的时候，直接使用opener里面的方法，不再使用urlopen了。
+	opener = urllib.request.build_opener(handler)
+	#构建请求对象
+	request = urllib.request.Request(url,headers)
+	#发送请求的时候，直接使用opener里面的方法，不再使用urlopen了r
+	#不论是get 还是post
+	response = opener.open(request)
+	print(response.read().decode())
+	
